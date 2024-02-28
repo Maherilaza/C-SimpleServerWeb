@@ -15,19 +15,19 @@ send() // envoie message
 
 #define IPV4 INADDR_ANY // 0x000000
 #define PORT 4444
-#define SIZE_BUFFER 0x400
-#define FILE_LEN 0x100
-#define MESSAGE_buffer_s 0x100
+#define SIZE_BUFFER 0x0400
+#define FILE_LEN 0x0100
+#define MESSAGE_buffer_s 0x0100
 
 int main() {
 
     char filename[] = "index.html";
-
+ 
     char buffer[SIZE_BUFFER] = {0};
     FILE *f = fopen(filename, "r");
 
-    (f == NULL) ? fprintf(stderr, "Err ouverture fichier\n"),
-    exit(EXIT_FAILURE) : printf("init %s", filename); 
+    (f == NULL) ? printf("Impossible d'ouvrire {%s}\n\r", filename),
+    exit(EXIT_FAILURE) : printf("\nGET : %s\n", filename); 
 
     char buffer_t[FILE_LEN];
     char buffer_a[FILE_LEN] = " ";
@@ -43,37 +43,33 @@ int main() {
     int socketFD = socket(AF_INET, SOCK_STREAM, 0);
 
     if(socketFD == -1) {
-        fprintf(stderr, "Err creation socket\n");
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "Erreur(SOCKET(0x01))\n\r");
+        exit(0x01);
     }
 
     int bindErr = bind(socketFD, (struct sockaddr*)&sockAddr, size_sockeaddr);
 
     if(bindErr == -1) {
-        fprintf(stderr, "Err liaison bind au socket\n");
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "Erreur(BIND(0x02))\n\r");
+        exit(0x02);
     }
 
     int listening_socket_fd = listen(socketFD, 10);
 
-    if(listening_socket_fd == -1){
-        fprintf(stderr, "Err Ecoute\nexit ..");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("\nEn attente d'une connexion\n");
+    (listening_socket_fd == -1) ? fprintf(stderr, "Erreur(ECOUTE(0x3))\n\r"),
+    exit(0x03) : puts("En attente d'une connexion\n\r");
 
 
     int acceptfd = accept(socketFD, (struct sockaddr*)&sockAddr, (socklen_t *)&size_sockeaddr);
     if(acceptfd == -1) {
-        fprintf(stderr, "Err accept connexion\n");
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "Erreur(ACCEPT_CONNEXION(0x04))\n\r");
+        exit(0x04);
     }
 
     long message = recv(acceptfd, buffer, SIZE_BUFFER, 0);
     if(message == -1){
-        fprintf(stderr, "Message err\n");
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "Erreur(RECV_MESSG(0x5))\n\r");
+        exit(0x05);
     }
 
     while(fgets(buffer_t, sizeof(buffer_t), f) != NULL) {
@@ -86,14 +82,15 @@ int main() {
     long testErr = send(acceptfd, buffer_a, sizeof(buffer_a), 0);
 
     if(sendrErr && testErr == -1){
-        fprintf(stderr, "Err sending message ..\n");
+        fprintf(stderr, "Erreur(SENDING_MESSG(0x6))\n\r");
+        exit(0x06);
     }
 
-    printf("Client : \n\n %s", buffer);
+    printf("CLIENT : \n\r %s", buffer);
 
     close(socketFD);
     close(acceptfd);
-
     fclose(f);
+
     return 0;
 }

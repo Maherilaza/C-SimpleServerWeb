@@ -14,12 +14,12 @@ send() // envoie message
 #include <unistd.h>
 
 #define IPV4 INADDR_ANY // 0x000000
-#define PORT 4444
+#define PORT 1234
 #define SIZE_BUFFER 0x0400
 #define FILE_LEN 0x0100
 #define MESSAGE_buffer_s 0x0100
 
-int main() {
+int main(int argc, char argv) {
 
     char filename[] = "index.html";
  

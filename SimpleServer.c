@@ -19,12 +19,14 @@ send() // envoie message
 #define FILE_LEN 0x0100
 #define MESSAGE_buffer_s 0x0100
 
-int main(int argc, char argv) {
+int main(int argc, char **argv) {
 
-    char filename[] = "index.html";
- 
+    char filename[FILE_LEN] = "index.html";
+
     char buffer[SIZE_BUFFER] = {0};
     FILE *f = fopen(filename, "r");
+
+    // int PORT2 = argv[1]; /*FEATURE CONVERT CHAR TO INT*/
 
     (f == NULL) ? printf("Impossible d'ouvrire {%s}\n\r", filename),
     exit(EXIT_FAILURE) : printf("\nGET : %s\n", filename); 
@@ -56,8 +58,12 @@ int main(int argc, char argv) {
 
     int listening_socket_fd = listen(socketFD, 10);
 
-    (listening_socket_fd == -1) ? fprintf(stderr, "Erreur(ECOUTE(0x3))\n\r"),
-    exit(0x03) : puts("En attente d'une connexion\n\r");
+    if(listening_socket_fd == -1){
+        fprintf(stderr, "Err Ecoute\nexit ..");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("\nEn attente d'une connexion\n");
 
 
     int acceptfd = accept(socketFD, (struct sockaddr*)&sockAddr, (socklen_t *)&size_sockeaddr);

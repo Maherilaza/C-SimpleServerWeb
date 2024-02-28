@@ -19,9 +19,10 @@ send() // envoie message
 #define FILE_LEN 0x100
 #define MESSAGE_buffer_s 0x100
 
-int main() {
+int main(int argc, char **argv) {
 
     char filename[] = "index.html";
+    // int PORT2 = argv[1]; /*FEATURE CONVERT CHAR TO INT*/
 
     char buffer[SIZE_BUFFER] = {0};
     FILE *f = fopen(filename, "r");
@@ -62,7 +63,6 @@ int main() {
     }
 
     printf("\nEn attente d'une connexion\n");
-
 
     int acceptfd = accept(socketFD, (struct sockaddr*)&sockAddr, (socklen_t *)&size_sockeaddr);
     if(acceptfd == -1) {

@@ -1,11 +1,3 @@
-/*
-socket()
-bin()
-listen()
-accept() == new socketfd2
-recv() // recevoir message
-send() // envoie message
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +6,7 @@ send() // envoie message
 #include <unistd.h>
 
 #define IPV4 INADDR_ANY // 0x000000
-#define PORT 1234
+#define PORT 8080
 #define SIZE_BUFFER 0x0400
 #define FILE_LEN 0x0100
 #define MESSAGE_buffer_s 0x0100
@@ -28,7 +20,7 @@ int main(int argc, char **argv) {
 
     // int PORT2 = argv[1]; /*FEATURE CONVERT CHAR TO INT*/
 
-    (f == NULL) ? printf("Impossible d'ouvrire {%s}\n\r", filename),
+    (f == NULL) ? printf("Impossible d'ouvrir {%s}\n\r", filename),
     exit(EXIT_FAILURE) : printf("\nGET : %s\n", filename); 
 
     char buffer_t[FILE_LEN];

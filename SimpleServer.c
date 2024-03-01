@@ -1,4 +1,4 @@
-// Def PORT 8080
+// Don't use in production !!
 // gcc -Wall -Wextra -o SimpleServer SimpleServer.c                              |
 // ./SimpleServer
 // 

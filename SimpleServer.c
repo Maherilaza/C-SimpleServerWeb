@@ -1,3 +1,7 @@
+
+// gcc -Wall -Wextra -o SimpleServer SimpleServer.c                              |
+// ./SimpleServer
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,6 +1,8 @@
-
+// Def PORT 8080
 // gcc -Wall -Wextra -o SimpleServer SimpleServer.c                              |
 // ./SimpleServer
+// 
+//
 
 #include <stdio.h>
 #include <stdlib.h>
